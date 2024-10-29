@@ -1,0 +1,39 @@
+# Python specific
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+*.db
+*.sqlite3
+
+# Virtual environment
+myenv/
+venv/
+ENV/
+env/
+
+# IDE specific
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Python distribution
+*.egg-info/
+dist/
+build/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# Test results
+*.result
+.coverage
+nosetests.xml
+coverage.xml
+*.cover
+*.hypothesis/
