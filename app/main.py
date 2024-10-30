@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
-from database import engine, Base, get_db
+from app.database import engine, Base, get_db
 
 load_dotenv()
 
@@ -28,7 +28,5 @@ app.add_middleware(
 
 @app.get("/", response_model=dict)
 def read_root() -> dict:
-    return {
-        "message": "server is running"
-    }
+     return {"Hello": "Welcome to the E-commerce API"}
 
