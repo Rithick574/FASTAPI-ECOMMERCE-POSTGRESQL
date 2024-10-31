@@ -1,17 +1,18 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 class UserBase(BaseModel):
     email: str
 
 class UserCreate(UserBase):
+    username: str = Field(..., min_length=3, max_length=50)
     password: str
-    
-class UserCreate(UserBase):
-    username: str
 
-class User(UserBase):
+class UserResponse(UserBase):
     id: int
     is_active: bool
+    username: str
+    created_at: str
+    updated_at: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True

@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
-from app.database import engine, Base, get_db
+from app.database import engine, Base, get_db, test_connection
+from app.routers import auth
 
 load_dotenv()
 
@@ -25,8 +26,33 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+app.include_router(auth.router)
 
-@app.get("/", response_model=dict)
+@app.get("/",
+    response_model=dict,
+    tags=["Root"],
+    summary="Root endpoint",
+    description="Returns a welcome message"
+)
 def read_root() -> dict:
-     return {"Hello": "Welcome to the E-commerce API"}
+    return {"Hello": "Welcome to the E-commerce API"}
 
+@app.get("/test-db")
+async def test_db_connection():
+    if await test_connection():
+        return {"status": "success", "message": "Database connection successful"}
+    else:
+        raise HTTPException(status_code=500, detail="Database connection failed")
+
+@app.on_event("startup")
+async def startup_event():
+    """
+    Verify database connection on startup
+    """
+    if not await test_connection():  
+        raise Exception("Could not connect to database")
+    print("Database connection verified during startup!")
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
