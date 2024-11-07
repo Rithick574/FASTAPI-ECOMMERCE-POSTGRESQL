@@ -1,0 +1,22 @@
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environment directories
+venv/
+env/
+new_env/
+
+# Ignore local configuration files
+.env
+*.local
+
+# Ignore version control files
+.git
+.gitignore
+
+# Ignore documentation and other unnecessary files
+README.md
+LICENSE
+coverage/
