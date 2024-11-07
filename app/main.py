@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 from app.database import engine, Base, get_db, test_connection
-from app.routers import auth, product
+from app.routers import auth, product, cart
 
 load_dotenv()
 
@@ -30,6 +30,7 @@ BASE_PREFIX = "/api/v1"
 
 app.include_router(auth.router, prefix=f"{BASE_PREFIX}/auth", tags=["auth"])
 app.include_router(product.router, prefix=f"{BASE_PREFIX}/products", tags=["products"])
+app.include_router(cart.router, prefix=f"{BASE_PREFIX}/cart", tags=["Cart"])
 
 @app.get("/",
     response_model=dict,
