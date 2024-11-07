@@ -9,3 +9,5 @@ class Product(Base):
     description = Column(String)
     price = Column(Float)
     stock = Column(Integer)
+    
+    cart_items = relationship("CartItem", back_populates="product")
