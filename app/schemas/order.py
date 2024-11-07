@@ -2,31 +2,31 @@ from pydantic import BaseModel
 from typing import List
 import datetime
 
-class OrderItemBase(BaseModel):
+class OrderItemCreate(BaseModel):
     product_id: int
     quantity: int
+     price: float
 
-class OrderItemCreate(OrderItemBase):
-    pass
+class OrderCreate(BaseModel):
+    total_amount: float
+    items: List[OrderItemCreate]
 
-class OrderItem(OrderItemBase):
+class OrderItemResponse(BaseModel):
     id: int
+    order_id: int
+    product_id: int
+    quantity: int
     price: float
 
     class Config:
-        orm_mode = True
+        orm_mode = True 
 
-class OrderBase(BaseModel):
-    user_id: int
-
-class OrderCreate(OrderBase):
-    items: List[OrderItemCreate]
-
-class Order(OrderBase):
+class OrderResponse(BaseModel):
     id: int
+    user_id: int
     total_amount: float
     created_at: datetime.datetime
-    items: List[OrderItem]
+    items: List[OrderItemResponse]
 
     class Config:
         orm_mode = True
