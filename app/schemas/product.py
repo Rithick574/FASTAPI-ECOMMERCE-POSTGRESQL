@@ -9,8 +9,14 @@ class ProductBase(BaseModel):
 class ProductCreate(ProductBase):
     pass
 
-class Product(ProductBase):
+class ProductUpdate(BaseModel):
+    name: str | None = None
+    description: str | None = None
+    price: float | None = None
+    stock: int | None = None
+
+class ProductResponse(ProductBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
